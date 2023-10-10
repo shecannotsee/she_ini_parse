@@ -12,7 +12,7 @@
 
 #include <lexer.h>
 
-TEST(lexer__test, one_line) {
+TEST(lexer__test, one_line_divide) {
   ini_parse::scan scanning("../resource/lexer_test.ini");
   auto buffer = scanning.get();
   ini_parse::lexer<char> lexer_test;
