@@ -15,9 +15,9 @@ TEST(scan__test,constructors) {
 TEST(scan__test, get_char) {
   ini_parse::scan scanning("../resource/placeholder.ini");
   auto buffer = scanning.get();
-  const std::string content = "[real_section] #we call this line section\nreal_key = real_value";
+  const std::string content = "real_section] #we call this line section\nreal_key = real_value";
   for (int i=0; i<buffer.size() || i<content.size(); ++i) {
-    ASSERT_EQ(buffer[i],content[i]);
+    ASSERT_EQ(buffer[i],content[i])<<"should is:"<<content[i]<<",but file is:"<< buffer[i]<<std::endl;
   }
 
 }
