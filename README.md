@@ -21,7 +21,7 @@ It is not difficult to imagine that the following method can be used to obtain k
 // ......
 ini_parse handle("placeholder.ini");
 std::string value = handle.section("title").get_key("real_key");
-std::cout << value << std::endl;
+std::cout << "print: " << value << std::endl;
 // print: real_value
 // ......
 ```
