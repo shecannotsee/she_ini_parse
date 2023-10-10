@@ -18,7 +18,7 @@ TEST(lexer__test, one_line_divide) {
   ini_parse::lexer<char> lexer_test;
 
   int start = 0;
-  {
+  /* line1 */ {
     std::string line = "[admin]\n";
     auto index = lexer_test.one_line_divide(buffer, start);
     int end = std::get<1>(index);
@@ -32,7 +32,7 @@ TEST(lexer__test, one_line_divide) {
     ASSERT_EQ(check_running,true);
     start = std::get<1>(index) + 1;
   }
-  {
+  /* line2 */ {
     std::string line = "adress = aaaaaaaaaaaaaaaaaaaaaaaaaaaa\\\n         bbbbbbbbbbbb\n";
     auto index = lexer_test.one_line_divide(buffer, start);
     int end = std::get<1>(index);
@@ -46,7 +46,7 @@ TEST(lexer__test, one_line_divide) {
     ASSERT_EQ(check_running,true);
     start = std::get<1>(index) + 1;
   }
-  {
+  /* line3 */ {
     std::string line = "name = jac\\\n          k\n";
     auto index = lexer_test.one_line_divide(buffer, start);
     int end = std::get<1>(index);
@@ -60,7 +60,7 @@ TEST(lexer__test, one_line_divide) {
     ASSERT_EQ(check_running,true);
     start = std::get<1>(index) + 1;
   }
-  {
+  /* line4 */ {
     std::string line = "\n";
     auto index = lexer_test.one_line_divide(buffer, start);
     int end = std::get<1>(index);
@@ -74,7 +74,7 @@ TEST(lexer__test, one_line_divide) {
     ASSERT_EQ(check_running,true);
     start = std::get<1>(index) + 1;
   }
-  {
+  /* line5 */ {
     std::string line = "a\n";
     auto index = lexer_test.one_line_divide(buffer, start);
     int end = std::get<1>(index);
@@ -88,7 +88,7 @@ TEST(lexer__test, one_line_divide) {
     ASSERT_EQ(check_running,true);
     start = std::get<1>(index) + 1;
   }
-  {
+  /* line6 */ {
     std::string line = "des = asdsadasd\\asdasdasdas\\dasdasdsad\n";
     auto index = lexer_test.one_line_divide(buffer, start);
     int end = std::get<1>(index);
