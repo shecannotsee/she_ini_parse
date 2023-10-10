@@ -50,6 +50,11 @@ class lexer {
     }
   };
 
+  // clear ' ', '\' , '\n'
+  void process_one_line(const std::vector<char_type>& buffer, int start, int end, std::vector<lexer_type>& tokens) {
+
+  };
+
  public:
   std::vector<lexer_type> get_token(const std::vector<char_type>& buffer) {
     std::vector<lexer_type> ret;
