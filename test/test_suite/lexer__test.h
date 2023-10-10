@@ -17,37 +17,90 @@ TEST(lexer__test, one_line) {
   auto buffer = scanning.get();
   ini_parse::lexer<char> lexer_test;
 
-  std::string line1 = "[admin]\n";
+  int start = 0;
   {
-    auto index = lexer_test.one_line(buffer,0);
-    for (int i = std::get<0>(index),j=0; i < std::get<1>(index); ++i) {
-      ASSERT_EQ(buffer[i],line1[j]);
+    std::string line = "[admin]\n";
+    auto index = lexer_test.one_line_divide(buffer, start);
+    int end = std::get<1>(index);
+    if (start == end) end = start+1;
+    bool check_running = false;
+    for (int i = start,j=0; i < end; ++i) {
+      ASSERT_EQ(buffer[i],line[j]);
       j++;
+      check_running = true;
     }
+    ASSERT_EQ(check_running,true);
+    start = std::get<1>(index) + 1;
   }
-  std::string line2 = "adress = aaaaaaaaaaaaaaaaaaaaaaaaaaaa\\         bbbbbbbbbbbb";
   {
-    auto index = lexer_test.one_line_divide(buffer,0);
-    for (int i = std::get<0>(index),j=0; i < std::get<1>(index); ++i) {
-      ASSERT_EQ(buffer[i],line1[j]);
+    std::string line = "adress = aaaaaaaaaaaaaaaaaaaaaaaaaaaa\\\n         bbbbbbbbbbbb\n";
+    auto index = lexer_test.one_line_divide(buffer, start);
+    int end = std::get<1>(index);
+    if (start == end) end = start+1;
+    bool check_running = false;
+    for (int i = start,j=0; i < end; ++i) {
+      ASSERT_EQ(buffer[i],line[j]);
       j++;
+      check_running = true;
     }
+    ASSERT_EQ(check_running,true);
+    start = std::get<1>(index) + 1;
   }
-  std::string line3 = "name = jac\\          k";
   {
-    auto index = lexer_test.one_line_divide(buffer,0);
-    for (int i = std::get<0>(index),j=0; i < std::get<1>(index); ++i) {
-      ASSERT_EQ(buffer[i],line1[j]);
+    std::string line = "name = jac\\\n          k\n";
+    auto index = lexer_test.one_line_divide(buffer, start);
+    int end = std::get<1>(index);
+    if (start == end) end = start+1;
+    bool check_running = false;
+    for (int i = start,j=0; i < end; ++i) {
+      ASSERT_EQ(buffer[i],line[j]);
       j++;
+      check_running = true;
     }
+    ASSERT_EQ(check_running,true);
+    start = std::get<1>(index) + 1;
   }
-  std::string line4 = "des = asdsadasd\\asdasdasdas\\dasdasdsad";
   {
-    auto index = lexer_test.one_line_divide(buffer,0);
-    for (int i = std::get<0>(index),j=0; i < std::get<1>(index); ++i) {
-      ASSERT_EQ(buffer[i],line1[j]);
+    std::string line = "\n";
+    auto index = lexer_test.one_line_divide(buffer, start);
+    int end = std::get<1>(index);
+    if (start == end) end = start+1;
+    bool check_running = false;
+    for (int i = start,j=0; i < end; ++i) {
+      ASSERT_EQ(buffer[i],line[j]);
       j++;
+      check_running = true;
     }
+    ASSERT_EQ(check_running,true);
+    start = std::get<1>(index) + 1;
+  }
+  {
+    std::string line = "a\n";
+    auto index = lexer_test.one_line_divide(buffer, start);
+    int end = std::get<1>(index);
+    if (start == end) end = start+1;
+    bool check_running = false;
+    for (int i = start,j=0; i < end; ++i) {
+      ASSERT_EQ(buffer[i],line[j]);
+      j++;
+      check_running = true;
+    }
+    ASSERT_EQ(check_running,true);
+    start = std::get<1>(index) + 1;
+  }
+  {
+    std::string line = "des = asdsadasd\\asdasdasdas\\dasdasdsad\n";
+    auto index = lexer_test.one_line_divide(buffer, start);
+    int end = std::get<1>(index);
+    if (start == end) end = start+1;
+    bool check_running = false;
+    for (int i = start,j=0; i < end; ++i) {
+      ASSERT_EQ(buffer[i],line[j]);
+      j++;
+      check_running = true;
+    }
+    ASSERT_EQ(check_running,true);
+    start = std::get<1>(index) + 1;
   }
 
 }
