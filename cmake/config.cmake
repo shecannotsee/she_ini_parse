@@ -4,7 +4,7 @@
 ########################################################################################################################
 
 # project name
-set(project_name "placeholder_name")
+set(project_name "she_ini_parse")
 # [Release] or [Debug] or [MinSizeRel]
 set(compilation_options "Debug")
 
