@@ -5,7 +5,8 @@
 #include "global_test_set.h"
 #include "test_example.h"
 // test_suite
-
+#include "test_suite/scan__test.h"
+#include "test_suite/lexer__test.h"
 // easy_test
 
 // logic_test
