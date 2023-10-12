@@ -19,7 +19,7 @@ It is not difficult to imagine that the following method can be used to obtain k
 
 ```c++
 // ......
-she handle("placeholder.ini");
+ini_parse handle("placeholder.ini");
 std::string value = handle.section("title").get_key("real_key");
 std::cout << "print: " << value << std::endl;
 // print: real_value
