@@ -32,7 +32,7 @@ void parse::process_one_line(const std::vector<std::tuple<lexer_type, std::strin
 
   } else if (type == parse_type::KEY) {
     std::string key = std::get<1>(tokens[0]);
-    std::string value = std::get<1>(tokens[0]);
+    std::string value = std::get<1>(tokens[2]);
     key_value_pair kvp;
     kvp.key   = key;
     kvp.value = value;
