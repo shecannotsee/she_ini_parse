@@ -17,9 +17,9 @@ if (generate_lib STREQUAL "ON")
     # Rename the generated static library
     set_target_properties(${library_static_name} PROPERTIES OUTPUT_NAME ${project_name})
 
-#    add_library(${library_dynamic_name} SHARED ${SRC})
+    add_library(${library_dynamic_name} SHARED ${SRC})
     # Rename the generated dynamic library
-#    set_target_properties(${library_dynamic_name} PROPERTIES OUTPUT_NAME ${project_name})
+    set_target_properties(${library_dynamic_name} PROPERTIES OUTPUT_NAME ${project_name})
 else()
     message(STATUS "CMakeLists.txt error:src build error")
 endif ()
