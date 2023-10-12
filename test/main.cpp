@@ -7,6 +7,7 @@
 // test_suite
 #include "test_suite/scan__test.h"
 #include "test_suite/lexer__test.h"
+#include "test_suite/lexer_DFA_model__test.h"
 // easy_test
 
 // logic_test

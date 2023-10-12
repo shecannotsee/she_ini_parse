@@ -40,3 +40,61 @@ S1
 #### 5.Accept States
 
 S3
+
+
+
+### build_model
+
+#### get all states:
+
+```c++
+enum class status {
+    S1,S2,S3,REFUSE
+};
+
+```
+
+
+
+#### get all Alphabet
+
+```c++
+enum class alphabet {
+    Q1,Q2,Q3,Q4
+};
+
+std::unordered_map<char_type, alphabet> cher_table = {
+    {'\n',alphabet::Q1},
+    {'\\',alphabet::Q2},
+    {' ', alphabet::Q3}
+}
+
+template<typename char_type>
+alphabet get_alphabet(char_type input) {
+    if (cher_table.find(input) != cher_table.end()) {
+    	return cher_table[input];
+    } else {
+        return alphabet::Q4;
+    }
+}
+```
+
+
+
+#### Implement conversion functions
+
+```c++
+template<typename char_type>
+states transition_status(char_type input) {
+}
+```
+
+
+
+#### Overall logic
+
+```c++
+void main_logic() {
+}
+```
+
