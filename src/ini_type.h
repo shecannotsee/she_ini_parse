@@ -13,7 +13,7 @@ enum class lexer_type {
   TYPE_CONVERSION = '=',
 
   NOTE = '#',
-  SEPARATE = '\n',
+  LINE_BREAK = '\n',
 
   ESCAPE = '\\',
   VALUE
