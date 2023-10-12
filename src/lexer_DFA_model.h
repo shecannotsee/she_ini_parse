@@ -6,18 +6,7 @@
 #define SHE_INI_PARSE_LEXER_DFA_MODEL_H
 
 #include <unordered_map>
-
-// Provide custom hashes to <>
-namespace std {
-template<>
-struct hash<std::tuple<int, int>> {
-  std::size_t operator()(const std::tuple<int, int> &key) const {
-    using std::hash;
-    // Combine the hash values of the two enum values to create a unique hash
-    return hash<int>()(static_cast<int>(std::get<0>(key))) ^ hash<int>()(static_cast<int>(std::get<1>(key)));
-  }
-};
-}// namespace std
+#include <provide_hash.h>
 
 namespace ini_parse {
 
