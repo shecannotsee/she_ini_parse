@@ -103,7 +103,7 @@ TEST(lexer__test, one_line_divide) {
       j++;
       check_running = true;
     }
-//    ASSERT_EQ(check_running,true);
+    ASSERT_EQ(check_running,true);
     start = std::get<1>(index) + 1;
   }
 
