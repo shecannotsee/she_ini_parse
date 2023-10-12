@@ -59,6 +59,10 @@ class lexer {
       }
     }
     this->set_token(generate_token_buffer,tokens);
+    // Prevent redundant line breaks
+    if (!tokens.empty() && std::get<0>(tokens.back())!=lexer_type::LINE_BREAK) {
+      tokens.emplace_back(lexer_type::LINE_BREAK, std::string("\n"));
+    }
   };
 
   // no ' ', '\', '\n'
