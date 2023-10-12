@@ -13,10 +13,6 @@
 
 namespace ini_parse {
 
-struct token {
-  lexer_type type;
-  std::string value;
-};
 
 template<typename char_type>
 class lexer {
@@ -53,7 +49,7 @@ class lexer {
   };
 
   // clear ' ', '\' , '\n'
-  void process_one_line(const std::vector<char_type>& buffer, int start, int end, std::vector<lexer_type>& tokens) {
+  void process_one_line(const std::vector<char_type>& buffer, int start, int end, std::vector<std::tuple<lexer_type,std::string>>& tokens) {
     std::vector<char_type> generate_token_buffer{};
     auto state = lexer_DFA_model::start_state;
     for (int i = start; i < end; ++i) {
@@ -66,13 +62,51 @@ class lexer {
   };
 
   // no ' ', '\', '\n'
-  void set_token(const std::vector<char_type>& buffer, std::vector<lexer_type>& tokens) {
+  void set_token(std::vector<char_type>& buffer, std::vector<std::tuple<lexer_type,std::string>>& tokens) {
+    auto commit_token = [&](int max, lexer_type _){
+      std::string value;
+      for (int i = 0; i < max; ++i) {
+        value += buffer[i];
+      }
+      if (!value.empty())
+        tokens.emplace_back(_,value);
+    };
+    int index = 0;
+    for (int i = 0; i < buffer.size(); ++i) {
+      /**zz*/if (buffer[i] == '[') {
+        commit_token(index,lexer_type::VALUE);
+        buffer[0] = buffer[i];
+        index = 1;
+        commit_token(index,lexer_type::SECTION_BEGIN);
+        index = 0;
+      } else if (buffer[i] == ']') {
+        commit_token(index,lexer_type::VALUE);
+        buffer[0] = buffer[i];
+        index = 1;
+        commit_token(index,lexer_type::SECTION_END);
+        index = 0;
+      } else if (buffer[i] == '=') {
+        commit_token(index,lexer_type::VALUE);
+        buffer[0] = buffer[i];
+        index = 1;
+        commit_token(index,lexer_type::TYPE_CONVERSION);
+        index = 0;
+      } else if (buffer[i] == '#') {
+        break;
+      } else {
+        buffer[index] = buffer[i];
+        index++;
+      }
 
+    }
+
+    commit_token(index,lexer_type::VALUE);
   }
 
+
  public:
-  std::vector<lexer_type> get_token(const std::vector<char_type>& buffer) {
-    std::vector<lexer_type> ret;
+  std::vector<std::tuple<lexer_type,std::string>> get_token(const std::vector<char_type>& buffer) {
+    std::vector<std::tuple<lexer_type,std::string>> ret;
     int start = 0;
     while (start<buffer.size()) {
       auto index = this->one_line_divide(buffer, start);
