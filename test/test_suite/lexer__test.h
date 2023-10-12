@@ -167,9 +167,6 @@ TEST(lexer__test, token_validation) {
   ASSERT_EQ(get_value(tokens[6]),std::string("asdsadasdasdasdasdasdasdasdsad"));
   ASSERT_EQ(get_lexer_type(tokens[7]),ini_parse::lexer_type::LINE_BREAK);
   ASSERT_EQ(get_value(tokens[7]),std::string("\n"));
-
-
-  EXPECT_EQ(1,1);
 }
 
 #endif //SHE_INI_PARSE_LEXER__TEST_H
