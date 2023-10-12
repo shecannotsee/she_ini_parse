@@ -55,7 +55,11 @@ states transition_status(states now, char_type input) {
   int input_S = static_cast<int>(now);
   int input_Q = static_cast<int>(get_alphabet(input));
   auto key = std::make_tuple(input_S,input_Q);
-  return transfer_function[key];
+  if(transfer_function.find(key)!= transfer_function.end())
+    return transfer_function[key];
+  else {
+    return states::REFUSE;
+  }
 }
 
 /********** init state ************************************************************************************************/
