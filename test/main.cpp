@@ -9,6 +9,7 @@
 #include "test_suite/lexer__test.h"
 #include "test_suite/lexer_DFA_model__test.h"
 #include "test_suite/parse__test.h"
+#include "test_suite/ini_parse__test.h"
 // easy_test
 
 // logic_test
