@@ -9,7 +9,11 @@
 
 TEST(lexer_DFA_model__test,running) {
   ini_parse::scan scanning("../resource/lexer_test.ini");
-  auto buffer = scanning.get();
+  auto buffer = scanning.get();/* deal last char */ {
+    if (buffer[buffer.size() - 1] != '\n') {
+      buffer.emplace_back('\n');
+    }
+  }
   using namespace ini_parse::lexer_DFA_model;
 
   std::vector<std::string> line = {
