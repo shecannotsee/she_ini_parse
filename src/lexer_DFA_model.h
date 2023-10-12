@@ -23,15 +23,16 @@ namespace ini_parse {
 
 namespace lexer_DFA_model {
 
+/********** States ****************************************************************************************************/
 enum class states : int {
   S1,S2,S3,REFUSE
 };
 
+/********** alphabet **************************************************************************************************/
 enum class alphabet : int {
   Q1,Q2,Q3,Q4
 };
 
-/* alphabet { *******************************************/
 std::unordered_map<char, alphabet> cher_table = {
   {'\n',alphabet::Q1},
   {'\\',alphabet::Q2},
@@ -47,9 +48,8 @@ alphabet get_alphabet(char_type input) {
     return alphabet::Q4;
   }
 }
-/* alphabet } *******************************************/
 
-/* Transition Function { ****************************** */
+/********** Transition Function ***************************************************************************************/
 std::unordered_map<std::tuple<int,int>,states> transfer_function = {
   {{static_cast<int>(states::S1),static_cast<int>(alphabet::Q1)},/* -> */states::S3},
   {{static_cast<int>(states::S1),static_cast<int>(alphabet::Q2)},/* -> */states::S2},
@@ -68,7 +68,12 @@ states transition_status(states now, char_type input) {
   auto key = std::make_tuple(input_S,input_Q);
   return transfer_function[key];
 }
-/* Transition Function } ****************************** */
+
+/********** init state ************************************************************************************************/
+constexpr states start_state = states::S1;
+
+/********** accept state **********************************************************************************************/
+constexpr states accept_state = states::S3;
 
 }// lexer_DFA_model
 
