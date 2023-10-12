@@ -110,10 +110,3 @@ states transition_status(states now, char_type input) {
 
 
 
-#### Overall logic
-
-```c++
-void main_logic() {
-}
-```
-
