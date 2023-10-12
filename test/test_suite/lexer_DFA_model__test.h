@@ -12,13 +12,13 @@ TEST(lexer_DFA_model__test,running) {
   auto buffer = scanning.get();
   using namespace ini_parse::lexer_DFA_model;
 
-  const std::vector<std::string> line = {
-    "[admin]\n",
-    "adress = aaaaaaaaaaaaaaaaaaaaaaaaaaaa\\\n         bbbbbbbbbbbb\n",
-    "name = jac\\\n          k\n",
-    "\n",
-    "a\n",
-    "des = asdsadasd\\asdasdasdas\\dasdasdsad\n",
+  std::vector<std::string> line = {
+    {std::string("[admin]\n")},
+    {std::string("adress = aaaaaaaaaaaaaaaaaaaaaaaaaaaa\\\n         bbbbbbbbbbbb\n")},
+    {std::string("name = jac\\\n          k\n")},
+    {std::string("\n")},
+    {std::string("a\n")},
+    {std::string("des = asdsadasd\\asdasdasdas\\dasdasdsad")}
   };
 
   // get data
@@ -28,8 +28,13 @@ TEST(lexer_DFA_model__test,running) {
   for (int i=0; i<buffer.size(); ++i) {
     states get_state = transition_status(state_now,buffer[i]);
     if(get_state == accept_state) {
-      read_from.emplace_back(buffer.begin()+index,buffer.begin()+i);
+      read_from.emplace_back(buffer.begin()+index,buffer.begin()+i+1);// +1 means include buffer[i] this char
       index = i+1;
+      state_now = start_state;
+    } else if (get_state==ini_parse::lexer_DFA_model::states::REFUSE) {
+      throw std::runtime_error("error to lexer");
+    } else {
+      state_now = get_state;
     }
   }
 
