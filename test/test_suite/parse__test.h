@@ -7,7 +7,7 @@
 
 #include <parse.h>
 
-TEST(parse__test, all) {
+TEST(parse__test, ast) {
   ini_parse::scan scanning("../resource/parse_test.ini");
   auto buffer = scanning.get();/* deal last char */ {
     if (buffer[buffer.size() - 1] != '\n') {
