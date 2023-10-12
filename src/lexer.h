@@ -55,10 +55,10 @@ class lexer {
   // clear ' ', '\' , '\n'
   void process_one_line(const std::vector<char_type>& buffer, int start, int end, std::vector<lexer_type>& tokens) {
     std::vector<char_type> generate_token_buffer{};
+    auto state = lexer_DFA_model::start_state;
     for (int i = start; i < end; ++i) {
-      auto state = lexer_DFA_model::start_state;
-      auto get_state = lexer_DFA_model::transition_status(state,buffer[i]);
-      if (get_state==lexer_DFA_model::states::S1 && buffer[i]!=' ') {
+      state = lexer_DFA_model::transition_status(state,buffer[i]);
+      if (state==lexer_DFA_model::states::S1 && buffer[i]!=' '&&buffer[i]!='\n') {
         generate_token_buffer.emplace_back(buffer[i]);
       }
     }
