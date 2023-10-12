@@ -16,7 +16,7 @@ enum class lexer_type {
   LINE_BREAK = '\n',
 
   ESCAPE = '\\',
-  VALUE = 128
+  VALUE = 0
 };
 
 }
