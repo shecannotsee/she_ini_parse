@@ -10,7 +10,7 @@
 #include <tuple>
 #include <vector>
 
-namespace ini_parse {
+namespace she {
 
 class parse {
  public:

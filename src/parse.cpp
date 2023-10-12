@@ -4,7 +4,7 @@
 
 #include "parse.h"
 
-namespace ini_parse {
+namespace she {
 
 AST parse::parsing(const std::vector<std::tuple<lexer_type, std::string>>& tokens) {
   using token_type = std::vector<std::tuple<lexer_type, std::string>>;

@@ -10,7 +10,7 @@
 #include <tuple>
 #include <unordered_map>
 
-namespace ini_parse {
+namespace she {
 
 enum class lexer_type {
   SECTION_BEGIN = '[',

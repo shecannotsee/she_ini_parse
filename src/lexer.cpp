@@ -4,5 +4,5 @@
 
 #include "lexer.h"
 
-namespace ini_parse {
+namespace she {
 } // ini_parse

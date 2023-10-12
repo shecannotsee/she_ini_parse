@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include <provide_hash.h>
 
-namespace ini_parse {
+namespace she {
 
 namespace lexer_DFA_model {
 

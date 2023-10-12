@@ -8,16 +8,16 @@
 #include <parse.h>
 
 TEST(parse__test, ast) {
-  ini_parse::scan scanning("../resource/parse_test.ini");
+  she::scan scanning("../resource/parse_test.ini");
   auto buffer = scanning.get();/* deal last char */ {
     if (buffer[buffer.size() - 1] != '\n') {
       buffer.emplace_back('\n');
     }
   }
-  ini_parse::lexer<char> lexer_test;
+  she::lexer<char> lexer_test;
 
   auto tokens = lexer_test.get_token(buffer);
-  ini_parse::parse p;
+  she::parse p;
   auto AST = p.parsing(tokens);
 
   AST.root = "../resource/parse_test.ini";

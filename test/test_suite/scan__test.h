@@ -8,12 +8,12 @@
 #include <scan.h>
 
 TEST(scan__test,constructors) {
-  EXPECT_NO_THROW(ini_parse::scan scanning("../resource/placeholder.ini"));
-  ASSERT_THROW(ini_parse::scan scanning("no_this_file"), std::runtime_error);
+  EXPECT_NO_THROW(she::scan scanning("../resource/placeholder.ini"));
+  ASSERT_THROW(she::scan scanning("no_this_file"), std::runtime_error);
 }
 
 TEST(scan__test, get_char) {
-  ini_parse::scan scanning("../resource/placeholder.ini");
+  she::scan scanning("../resource/placeholder.ini");
   auto buffer = scanning.get();
   const std::string content = "[real_section] #we call this line section\nreal_key = real_value";
   for (int i=0; i<buffer.size() || i<content.size(); ++i) {

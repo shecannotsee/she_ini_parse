@@ -6,7 +6,7 @@
 #include <chrono>
 #include <stdexcept>
 
-namespace ini_parse {
+namespace she {
 
 scan::scan(const std::string &file_handle) {
   // create entity

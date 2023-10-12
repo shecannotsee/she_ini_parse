@@ -10,7 +10,7 @@
 #include <queue>
 #include <atomic>
 
-namespace ini_parse {
+namespace she {
 
 class scan {
  public:

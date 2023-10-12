@@ -11,7 +11,7 @@
 #include <vector>
 #include <tuple>
 
-namespace ini_parse {
+namespace she {
 
 
 template<typename char_type>

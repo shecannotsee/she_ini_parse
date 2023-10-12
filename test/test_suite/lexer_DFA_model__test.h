@@ -8,13 +8,13 @@
 #include <lexer_DFA_model.h>
 
 TEST(lexer_DFA_model__test,running) {
-  ini_parse::scan scanning("../resource/lexer_test.ini");
+  she::scan scanning("../resource/lexer_test.ini");
   auto buffer = scanning.get();/* deal last char */ {
     if (buffer[buffer.size() - 1] != '\n') {
       buffer.emplace_back('\n');
     }
   }
-  using namespace ini_parse::lexer_DFA_model;
+  using namespace she::lexer_DFA_model;
 
   std::vector<std::string> line = {
     {std::string("[admin]\n")},
@@ -45,7 +45,7 @@ TEST(lexer_DFA_model__test,running) {
       read_from_without_line_break.emplace_back(buffer.begin()+index,buffer.begin()+i);
       index = i+1;
       state_now = start_state;
-    } else if (get_state==ini_parse::lexer_DFA_model::states::REFUSE) {
+    } else if (get_state == she::lexer_DFA_model::states::REFUSE) {
       throw std::runtime_error("error to lexer");
     } else {
       state_now = get_state;

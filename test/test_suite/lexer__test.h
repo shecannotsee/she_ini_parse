@@ -13,13 +13,13 @@
 #include <lexer.h>
 
 TEST(lexer__test, one_line_divide) {
-  ini_parse::scan scanning("../resource/lexer_test.ini");
+  she::scan scanning("../resource/lexer_test.ini");
   auto buffer = scanning.get();/* deal last char */ {
     if (buffer[buffer.size() - 1] != '\n') {
       buffer.emplace_back('\n');
     }
   }
-  ini_parse::lexer<char> lexer_test;
+  she::lexer<char> lexer_test;
 
   int start = 0;
   /* line1 */ {
@@ -109,63 +109,63 @@ TEST(lexer__test, one_line_divide) {
 
 }
 
-ini_parse::lexer_type get_lexer_type(std::tuple<ini_parse::lexer_type,std::string> tokens) {
+she::lexer_type get_lexer_type(std::tuple<she::lexer_type,std::string> tokens) {
   return std::get<0>(tokens);
 }
-std::string get_value(std::tuple<ini_parse::lexer_type,std::string> tokens) {
+std::string get_value(std::tuple<she::lexer_type,std::string> tokens) {
   return std::get<1>(tokens);
 }
 
 TEST(lexer__test, token_validation) {
-  ini_parse::scan scanning("../resource/lexer_test.ini");
+  she::scan scanning("../resource/lexer_test.ini");
   auto buffer = scanning.get();/* deal last char */ {
     if (buffer[buffer.size() - 1] != '\n') {
       buffer.emplace_back('\n');
     }
   }
-  ini_parse::lexer<char> lexer_test;
+  she::lexer<char> lexer_test;
 
   auto tokens = lexer_test.get_token(buffer);
 
-  ASSERT_EQ(get_lexer_type(tokens[0]),ini_parse::lexer_type::SECTION_BEGIN);
+  ASSERT_EQ(get_lexer_type(tokens[0]), she::lexer_type::SECTION_BEGIN);
   ASSERT_EQ(get_value(tokens[0]),std::string("["));
-  ASSERT_EQ(get_lexer_type(tokens[1]),ini_parse::lexer_type::VALUE);
+  ASSERT_EQ(get_lexer_type(tokens[1]), she::lexer_type::VALUE);
   ASSERT_EQ(get_value(tokens[1]),std::string("admin"));
-  ASSERT_EQ(get_lexer_type(tokens[2]),ini_parse::lexer_type::SECTION_END);
+  ASSERT_EQ(get_lexer_type(tokens[2]), she::lexer_type::SECTION_END);
   ASSERT_EQ(get_value(tokens[2]),std::string("]"));
-  ASSERT_EQ(get_lexer_type(tokens[3]),ini_parse::lexer_type::LINE_BREAK);
+  ASSERT_EQ(get_lexer_type(tokens[3]), she::lexer_type::LINE_BREAK);
   ASSERT_EQ(get_value(tokens[3]),std::string("\n"));
 
-  ASSERT_EQ(get_lexer_type(tokens[4]),ini_parse::lexer_type::VALUE);
+  ASSERT_EQ(get_lexer_type(tokens[4]), she::lexer_type::VALUE);
   ASSERT_EQ(get_value(tokens[4]),std::string("adress"));
-  ASSERT_EQ(get_lexer_type(tokens[5]),ini_parse::lexer_type::TYPE_CONVERSION);
+  ASSERT_EQ(get_lexer_type(tokens[5]), she::lexer_type::TYPE_CONVERSION);
   ASSERT_EQ(get_value(tokens[5]),std::string("="));
-  ASSERT_EQ(get_lexer_type(tokens[6]),ini_parse::lexer_type::VALUE);
+  ASSERT_EQ(get_lexer_type(tokens[6]), she::lexer_type::VALUE);
   ASSERT_EQ(get_value(tokens[6]),std::string("aaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbb"));
-  ASSERT_EQ(get_lexer_type(tokens[7]),ini_parse::lexer_type::LINE_BREAK);
+  ASSERT_EQ(get_lexer_type(tokens[7]), she::lexer_type::LINE_BREAK);
   ASSERT_EQ(get_value(tokens[7]),std::string("\n"));
 
-  ASSERT_EQ(get_lexer_type(tokens[8]),ini_parse::lexer_type::VALUE);
+  ASSERT_EQ(get_lexer_type(tokens[8]), she::lexer_type::VALUE);
   ASSERT_EQ(get_value(tokens[8]),std::string("name"));
-  ASSERT_EQ(get_lexer_type(tokens[9]),ini_parse::lexer_type::TYPE_CONVERSION);
+  ASSERT_EQ(get_lexer_type(tokens[9]), she::lexer_type::TYPE_CONVERSION);
   ASSERT_EQ(get_value(tokens[9]),std::string("="));
-  ASSERT_EQ(get_lexer_type(tokens[10]),ini_parse::lexer_type::VALUE);
+  ASSERT_EQ(get_lexer_type(tokens[10]), she::lexer_type::VALUE);
   ASSERT_EQ(get_value(tokens[10]),std::string("jack"));
-  ASSERT_EQ(get_lexer_type(tokens[11]),ini_parse::lexer_type::LINE_BREAK);
+  ASSERT_EQ(get_lexer_type(tokens[11]), she::lexer_type::LINE_BREAK);
   ASSERT_EQ(get_value(tokens[11]),std::string("\n"));
 
-  ASSERT_EQ(get_lexer_type(tokens[12]),ini_parse::lexer_type::VALUE);
+  ASSERT_EQ(get_lexer_type(tokens[12]), she::lexer_type::VALUE);
   ASSERT_EQ(get_value(tokens[12]),std::string("a"));
-  ASSERT_EQ(get_lexer_type(tokens[13]),ini_parse::lexer_type::LINE_BREAK);
+  ASSERT_EQ(get_lexer_type(tokens[13]), she::lexer_type::LINE_BREAK);
   ASSERT_EQ(get_value(tokens[13]),std::string("\n"));
 
-  ASSERT_EQ(get_lexer_type(tokens[14]),ini_parse::lexer_type::VALUE);
+  ASSERT_EQ(get_lexer_type(tokens[14]), she::lexer_type::VALUE);
   ASSERT_EQ(get_value(tokens[14]),std::string("des"));
-  ASSERT_EQ(get_lexer_type(tokens[15]),ini_parse::lexer_type::TYPE_CONVERSION);
+  ASSERT_EQ(get_lexer_type(tokens[15]), she::lexer_type::TYPE_CONVERSION);
   ASSERT_EQ(get_value(tokens[15]),std::string("="));
-  ASSERT_EQ(get_lexer_type(tokens[16]),ini_parse::lexer_type::VALUE);
+  ASSERT_EQ(get_lexer_type(tokens[16]), she::lexer_type::VALUE);
   ASSERT_EQ(get_value(tokens[16]),std::string("asdsadasdasdasdasdasdasdasdsad"));
-  ASSERT_EQ(get_lexer_type(tokens[17]),ini_parse::lexer_type::LINE_BREAK);
+  ASSERT_EQ(get_lexer_type(tokens[17]), she::lexer_type::LINE_BREAK);
   ASSERT_EQ(get_value(tokens[17]),std::string("\n"));
 }
 
