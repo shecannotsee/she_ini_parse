@@ -52,12 +52,21 @@ class lexer {
 
   // clear ' ', '\' , '\n'
   void process_one_line(const std::vector<char_type>& buffer, int start, int end, std::vector<lexer_type>& tokens) {
-
+    auto temp = std::move(std::vector<char_type>(buffer.begin()+start,buffer.begin()+end));
   };
 
  public:
   std::vector<lexer_type> get_token(const std::vector<char_type>& buffer) {
     std::vector<lexer_type> ret;
+    int start = 0;
+    while (start<buffer.size()) {
+      auto index = this->one_line_divide(buffer, start);
+      // ignore single line with '\n'
+      this->process_one_line(buffer, std::get<0>(index), std::get<1>(index), ret);
+
+      start = std::get<1>(index) + 1;
+    }
+    return ret;
   };
 
 };
