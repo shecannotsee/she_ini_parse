@@ -4,6 +4,7 @@
 
 #include "scan.h"
 #include <chrono>
+#include <stdexcept>
 
 namespace ini_parse {
 
