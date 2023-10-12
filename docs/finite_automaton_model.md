@@ -84,8 +84,27 @@ alphabet get_alphabet(char_type input) {
 #### Implement conversion functions
 
 ```c++
+static std::unordered_map<std::tuple<int,int>,states> transfer_function = {
+  {{static_cast<int>(states::S1),static_cast<int>(alphabet::Q1)},/* -> */states::S3},
+  {{static_cast<int>(states::S1),static_cast<int>(alphabet::Q2)},/* -> */states::S2},
+  {{static_cast<int>(states::S1),static_cast<int>(alphabet::Q3)},/* -> */states::S1},
+  {{static_cast<int>(states::S1),static_cast<int>(alphabet::Q4)},/* -> */states::S1},
+  {{static_cast<int>(states::S2),static_cast<int>(alphabet::Q1)},/* -> */states::S1},
+  {{static_cast<int>(states::S2),static_cast<int>(alphabet::Q2)},/* -> */states::S1},
+  {{static_cast<int>(states::S2),static_cast<int>(alphabet::Q3)},/* -> */states::S2},
+  {{static_cast<int>(states::S2),static_cast<int>(alphabet::Q4)},/* -> */states::S1},
+};
+
 template<typename char_type>
-states transition_status(char_type input) {
+states transition_status(states now, char_type input) {
+  int input_S = static_cast<int>(now);
+  int input_Q = static_cast<int>(get_alphabet(input));
+  auto key = std::make_tuple(input_S,input_Q);
+  if(transfer_function.find(key)!= transfer_function.end())
+    return transfer_function[key];
+  else {
+    return states::REFUSE;
+  }
 }
 ```
 
