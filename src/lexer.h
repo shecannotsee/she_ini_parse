@@ -6,6 +6,7 @@
 #define SHE_INI_PARSE_LEXER_H
 
 #include <ini_type.h>
+#include <lexer_DFA_model.h>
 #include <string>
 #include <vector>
 #include <tuple>
@@ -33,6 +34,7 @@ class lexer {
 
  private:
   // deal '\'
+  // equal to lexer_DFA_model
   std::tuple<int,int> one_line_divide(const std::vector<char_type>& buffer,int start_index) {
     bool escape_symbol= false;
     for (int i = start_index; i<buffer.size(); ++i) {
@@ -52,8 +54,21 @@ class lexer {
 
   // clear ' ', '\' , '\n'
   void process_one_line(const std::vector<char_type>& buffer, int start, int end, std::vector<lexer_type>& tokens) {
-    auto temp = std::move(std::vector<char_type>(buffer.begin()+start,buffer.begin()+end));
+    std::vector<char_type> generate_token_buffer{};
+    for (int i = start; i < end; ++i) {
+      auto state = lexer_DFA_model::start_state;
+      auto get_state = lexer_DFA_model::transition_status(state,buffer[i]);
+      if (get_state==lexer_DFA_model::states::S1 && buffer[i]!=' ') {
+        generate_token_buffer.emplace_back(buffer[i]);
+      }
+    }
+    this->set_token(generate_token_buffer,tokens);
   };
+
+  // no ' ', '\', '\n'
+  void set_token(const std::vector<char_type>& buffer, std::vector<lexer_type>& tokens) {
+
+  }
 
  public:
   std::vector<lexer_type> get_token(const std::vector<char_type>& buffer) {
