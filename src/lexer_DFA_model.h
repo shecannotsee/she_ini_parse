@@ -22,7 +22,7 @@ enum class alphabet : int {
   Q1,Q2,Q3,Q4
 };
 
-std::unordered_map<char, alphabet> cher_table = {
+static std::unordered_map<char, alphabet> cher_table = {
   {'\n',alphabet::Q1},
   {'\\',alphabet::Q2},
   {' ', alphabet::Q3}
@@ -39,7 +39,7 @@ alphabet get_alphabet(char_type input) {
 }
 
 /********** Transition Function ***************************************************************************************/
-std::unordered_map<std::tuple<int,int>,states> transfer_function = {
+static std::unordered_map<std::tuple<int,int>,states> transfer_function = {
   {{static_cast<int>(states::S1),static_cast<int>(alphabet::Q1)},/* -> */states::S3},
   {{static_cast<int>(states::S1),static_cast<int>(alphabet::Q2)},/* -> */states::S2},
   {{static_cast<int>(states::S1),static_cast<int>(alphabet::Q3)},/* -> */states::S1},
