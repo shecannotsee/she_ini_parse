@@ -35,7 +35,6 @@ if (generate_lib STREQUAL "ON")
         DESTINATION ${PROJECT_NAME}/lib
         )
     # cmake install
-    # lib install
     install(FILES
             ${CMAKE_SOURCE_DIR}/cmake/she_ini_parse-config.cmake
             DESTINATION ${PROJECT_NAME}/cmake
