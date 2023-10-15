@@ -49,7 +49,9 @@ class lexer {
   };
 
   // clear ' ', '\' , '\n'
-  void process_one_line(const std::vector<char_type>& buffer, int start, int end, std::vector<std::tuple<lexer_type,std::string>>& tokens) {
+  void process_one_line(const std::vector<char_type>& buffer,
+                        int start,
+                        int end, std::vector<std::tuple<lexer_type,std::string>>& tokens) {
     std::vector<char_type> generate_token_buffer{};
     auto state = lexer_DFA_model::start_state;
     for (int i = start; i < end; ++i) {
